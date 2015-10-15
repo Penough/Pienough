@@ -1,0 +1,76 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Chart</title>
+
+<?php
+$con = mysqli_connect("localhost","root","first.king.21");
+mysqli_select_db($con,"test");
+if (!$con)
+  {
+   die('Could not connect: ' . mysql_error());
+  }
+
+$sql="SELECT Login_ID,count(*) FROM level2_info WHERE FROM_UNIXTIME(Comment_time,'%Y-%m-%d')='2009-01-22' GROUP BY Login_ID ORDER BY count(*) DESC LIMIT 10";
+$result=mysqli_query($con,$sql);
+while($row=mysqli_fetch_array($result)){
+$count[]=intval($row['count(*)']);
+$Login_ID[]=$row["Login_ID"];
+}
+//$arr[];
+for($i=0;$i<count($count);$i++){
+	$arr[$i]=array("name"=>$Login_ID[$i],"y"=>$count[$i]);
+}
+//print_r($arr);
+
+$Login_ID=json_encode($Login_ID);
+$count=json_encode($count);
+$arr=json_encode($arr);
+//mysqli_close($con);
+?>
+
+<script type="text/javascript" src="Highcharts/js/jquery-1.11.3.min.js"></script>
+<script src="Highcharts/js/highcharts.js"></script>
+<script src="Highcharts/js/themes/grid.js"></script>
+<script src="Highcharts/js/modules/exporting.js"></script>
+<script type="text/javascript">
+	$(function () { 
+	    $('#container').highcharts({
+	chart:{
+	//type:'pie'
+	},
+
+ 	title: {
+	            text: 'Top 10 Comment --2004/11/22'
+	        },
+	tooltip: {
+		formatter:
+		function(){
+		return'<b>'+this.point.name+'</b>:'+Highcharts.numberFormat(this.percentage,1)+'%('+Highcharts.numberFormat(this.y,0,',')+'ge)';
+}
+		},
+	legend: {
+		layout: 'horizontal',
+		align: 'right',
+		verticalAlign: 'middle',
+		borderWidth: 0
+		},
+	series: [{
+		type:'pie',
+		name:null,	
+		data:<?php echo $arr;?>
+}]
+	       
+
+});
+});
+</script>
+
+
+</head>
+
+<body>
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+</body>
+
+</html>

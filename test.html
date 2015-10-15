@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<?php
+$a1=array("name"=>"a","data"=>[1,2,3,4,5,6,8,7,9]);
+$a2=array("name"=>"b","data"=>[7,8,5,6,6,2,1,6,5]);
+$a3=array("name"=>"a","data"=>[3,3,3,3,3,3,3,3,3]);
+$as=array($a1,$a2,$a3);
+print_r($as);
+print_r(count($a1));
+$as=json_encode($as);
+
+?>
+
+<script type="text/javascript" src="Highcharts/js/jquery-1.11.3.min.js"></script>
+<script src="Highcharts/js/highcharts.js"></script>
+<script src="Highcharts/js/themes/grid.js"></script>
+<script src="Highcharts/js/modules/exporting.js"></script>
+<script type="text/javascript">
+	//alert(s[0]);
+	$(function () { 
+	    $('#container').highcharts({
+	chart:{
+	//type:'bar'
+	},
+
+ 	title: {
+	            text: 'My first Highcharts chart'
+	        },
+	xAxis: {
+	
+	        },
+	yAxis: {
+		title: {
+		text: 'times'
+		},
+	plotLines: [{
+		value: 0,
+		width: 1,
+		color: '#808087'
+			}]
+		},
+	tooltip: {
+		valueSuffix: ' times'
+		},
+	legend: {
+		layout: 'vertical',
+		align: 'right',
+		verticalAlign: 'middle',
+		borderWidth: 0
+		},
+
+	series: <?php echo $as;?>
+ 
+
+});
+});
+</script>
+
+</head>
+
+<body>
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+</body>
+</html>

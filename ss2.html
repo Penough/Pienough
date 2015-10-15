@@ -1,0 +1,109 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Chart</title>
+
+<?php
+$con = mysqli_connect("localhost","root","first.king.21");
+mysqli_select_db($con,"test");
+if (!$con)
+  {
+   die('Could not connect: ' . mysql_error());
+  }
+
+$sql= "SELECT * FROM (SELECT FROM_UNIXTIME( Comment_time, '%Y-%m-%d' ),count(*) FROM level2_info GROUP BY FROM_UNIXTIME( Comment_time, '%Y-%m-%d' ) ORDER BY count(*) DESC)as a LIMIT 10";
+$result=mysqli_query($con,$sql);
+
+while($row=mysqli_fetch_array($result)){
+$count[]=intval($row['count(*)']);
+$Ctime[]=$row["FROM_UNIXTIME( Comment_time, '%Y-%m-%d' )"];
+}
+
+
+//print sizeof($Bug_ID);
+//$i=1;
+
+//$s=array_combine($Ctime,$count);
+//print_r ($s);
+//$s=json_encode($s);
+$data1=array(array("name"=>"count","data"=>$count,"color"=>"red"));
+$count=json_encode($count);
+$Ctime=json_encode($Ctime);
+
+//
+//
+//print_r ($data1);
+$data1=json_encode($data1);
+
+mysqli_close($con);
+?>
+
+<script type="text/javascript" src="Highcharts/js/jquery-1.11.3.min.js"></script>
+<script src="Highcharts/js/highcharts.js"></script>
+<script src="Highcharts/js/themes/grid.js"></script>
+<script src="Highcharts/js/modules/exporting.js"></script>
+<script type="text/javascript">
+	//alert(s[0]);
+	$(function () { 
+	    $('#container').highcharts({
+	chart:{
+	type:'column'
+	},
+
+ 	title: {
+	            text: 'Top 10 bug Comment'
+	        },
+	xAxis: {
+	            categories: <?php echo $Ctime;?>
+	        },
+	yAxis: {
+		title: {
+		text: 'times'
+		},
+	plotLines: [{
+		value: 0,
+		width: 1,
+		color: '#808087'
+			}]
+		},
+	plotOptions:{
+		series:{
+			point:{
+				events:{
+					click:function(){
+						var category=this.category;
+if(category){
+this.update({y:10000});
+}
+						}
+					}
+				}
+			}
+		},
+	tooltip: {
+		valueSuffix: ' times'
+		},
+	legend: {
+		layout: 'vertical',
+		align: 'right',
+		verticalAlign: 'middle',
+		borderWidth: 0
+		},
+	series: <?php echo $data1;?>
+		
+
+
+ 
+
+});
+});
+</script>
+
+
+</head>
+
+<body>
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+</body>
+
+</html>
