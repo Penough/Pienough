@@ -1,0 +1,63 @@
+p 935.0 455.0 MaintenanceN 0 n
+p 735.0 450.0 Maintenance1 0 n
+p 290.0 250.0 Owner 0 n
+t 145.0 250.0 t0 0 w n
+t 595.0 90.0 t1 0 w n
+t 645.0 160.0 t2 0 w n
+t 710.0 570.0 t9 0 w n
+t 665.0 370.0 t5 0 w n
+t 630.0 430.0 t6 0 w n
+t 845.0 410.0 t7 0 w n
+t 845.0 475.0 t8 0 w n
+p 960.0 110.0 TesterN 0 n
+t 830.0 55.0 t3 0 w n
+t 830.0 125.0 t4 0 w n
+p 725.0 90.0 Tester1 0 n
+t 410.0 240.0 t11 0 w n
+t 690.0 25.0 t13 0 w n
+t 770.0 190.0 t12 0 w n
+t 770.0 340.0 t10 0 w n
+p 775.0 265.0 Report 0 n
+t 600.0 230.0 t16 0 w n
+t 600.0 285.0 t17 0 w n
+p 55.0 250.0 Tourist 1 n
+t 25.0 155.0 t14 0 w n
+p 515.0 335.0 MainMaintenance 0 n
+p 515.0 180.0 MainTester 0 n
+e t17 Report 1 n
+e MainMaintenance t17 1 n
+e t16 Report 1 n
+e MainTester t16 1 n
+e t0 Owner 1 n
+e Tourist t0 1 n
+e t12 TesterN 1 n
+e MainTester t12 1 n
+e t13 0.4748903255 89.10667764 MainTester 0.2721669829 108.0462864 1 n
+e TesterN 0.2759804979 86.14522622 t13 0.02353095731 95.03683496 1 n
+e t11 MainMaintenance 1 n
+e t11 MainTester 1 n
+e Owner t11 1 n
+e t4 Tester1 1 n
+e TesterN t4 1 n
+e t3 TesterN 1 n
+e Tester1 t3 1 n
+e t2 MainTester 1 n
+e Tester1 t2 1 n
+e t1 Tester1 1 n
+e MainTester t1 1 n
+e MainMaintenance t5 1 n
+e t5 Maintenance1 1 n
+e Maintenance1 t6 1 n
+e t6 MainMaintenance 1 n
+e Maintenance1 t7 1 n
+e t7 MaintenanceN 1 n
+e MaintenanceN t8 1 n
+e t8 Maintenance1 1 n
+e MaintenanceN 0.7126915864 68.8839604 t9 0.002587657216 123.0162591 1 n
+e t9 0.5062998737 101.0791769 MainMaintenance 0.7119251083 84.40379138 1 n
+e MainMaintenance t10 1 n
+e t10 0.9645243266 76.90253567 MaintenanceN 0.3207315141 69.7782201 1 n
+e t14 Tourist 1 n
+h buffer1
+
+
